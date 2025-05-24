@@ -1,49 +1,57 @@
 import 'package:book_app/core/utils/styles.dart';
-import 'package:book_app/features/home/domain/entities/book_entity.dart';
 import 'package:book_app/features/home/presentation/manager/featured_books_cubit/featured_books_cubit.dart';
 import 'package:book_app/features/home/presentation/views/widgets/best_seller_listview.dart';
 import 'package:book_app/features/home/presentation/views/widgets/custom_app_bar.dart';
-
 import 'package:book_app/features/home/presentation/views/widgets/featured_books_listview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class HomeViewBody extends StatelessWidget {
-  const HomeViewBody({super.key, required this.books});
-  final List<BookEntity> books;
+class HomeViewBody extends StatefulWidget {
+  const HomeViewBody({
+    super.key,
+  });
+
+  @override
+  State<HomeViewBody> createState() => _HomeViewBodyState();
+}
+
+class _HomeViewBodyState extends State<HomeViewBody> {
+  @override
+  void initState() {
+    BlocProvider.of<FeaturedBooksCubit>(context).fetchFeaturedBooks();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return const Column(
       children: [
-        const CustomAppBar(),
-        const SizedBox(height: 20),
+        CustomAppBar(),
+        SizedBox(height: 20),
         Expanded(
           /////// CustomScrollView
           ///
           child: CustomScrollView(
             shrinkWrap: true,
-            physics: const BouncingScrollPhysics(),
+            physics: BouncingScrollPhysics(),
             slivers: [
               SliverToBoxAdapter(
-                child: FeaturedBooksListView(
-                  books:
-                      books, /////////////////////////////////////////////////////////////////////
-                ),
+                child: FeaturedBooksListView(),
               ),
-              const SliverToBoxAdapter(
+              SliverToBoxAdapter(
                 child: SizedBox(height: 40),
               ),
-              const SliverToBoxAdapter(
+              SliverToBoxAdapter(
                 child: Padding(
                   padding: EdgeInsets.only(left: 30),
                   child: BestSellerTitle(),
                 ),
               ),
-              const SliverToBoxAdapter(
+              SliverToBoxAdapter(
                 child: SizedBox(height: 30),
               ),
-              const SliverToBoxAdapter(
+              SliverToBoxAdapter(
                 child: BestSellerListView(),
               ),
             ],
@@ -65,8 +73,7 @@ class BestSellerTitle extends StatelessWidget {
       children: [
         Text(
           'Best Seller',
-          style: Styles.subtitle20
-              .copyWith(fontSize: 20, fontWeight: FontWeight.bold),
+          style: Styles.subtitle20.copyWith(fontSize: 20, fontWeight: FontWeight.bold),
         ),
       ],
     );

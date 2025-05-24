@@ -8,10 +8,8 @@ import 'package:book_app/features/home/domain/use_cases/fetch_featured_books_use
 import 'package:book_app/features/home/domain/use_cases/fetch_newest_books_use_case.dart';
 import 'package:book_app/features/home/presentation/manager/featured_books_cubit/featured_books_cubit.dart';
 import 'package:book_app/features/home/presentation/manager/newest_books_cubit/newest_books_cubit.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive_flutter/adapters.dart';
 
@@ -55,8 +53,7 @@ class BookApp extends StatelessWidget {
         routerConfig: AppRouter.router,
         debugShowCheckedModeBanner: false,
         theme: ThemeData.dark().copyWith(
-          textTheme:
-              GoogleFonts.deliusUnicaseTextTheme(ThemeData.dark().textTheme),
+          textTheme: GoogleFonts.deliusUnicaseTextTheme(ThemeData.dark().textTheme),
           scaffoldBackgroundColor: kPrimaryColor,
         ),
       ),
