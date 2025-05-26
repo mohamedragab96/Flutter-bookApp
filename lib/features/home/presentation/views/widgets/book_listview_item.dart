@@ -1,20 +1,37 @@
-import 'package:book_app/core/utils/assets_data.dart';
 import 'package:book_app/core/utils/styles.dart';
 import 'package:book_app/features/home/presentation/views/widgets/book_rating.dart';
+
 import 'package:flutter/material.dart';
 
 class BookListViewItem extends StatelessWidget {
-  const BookListViewItem({super.key});
-
+  const BookListViewItem(
+      {super.key,
+      required this.image,
+      required this.title,
+      required this.author,
+      required this.price,
+      required this.rating});
+  final String image;
+  final String title;
+  final String author;
+  final num price;
+  final num rating;
   @override
   Widget build(BuildContext context) {
-    return const Padding(
-      padding: EdgeInsets.only(left: 30),
+    return Padding(
+      padding: const EdgeInsets.only(left: 30),
       child: Row(
         children: [
-          ItemImage(),
-          SizedBox(width: 20),
-          ItemDetails(),
+          ItemImage(
+            bestsellerimage: image,
+          ),
+          const SizedBox(width: 20),
+          ItemDetails(
+            title: title,
+            author: author,
+            price: price,
+            rating: rating,
+          ),
         ],
       ),
     );
@@ -24,7 +41,15 @@ class BookListViewItem extends StatelessWidget {
 class ItemDetails extends StatelessWidget {
   const ItemDetails({
     super.key,
+    required this.title,
+    required this.author,
+    required this.price,
+    required this.rating,
   });
+  final String title;
+  final String author;
+  final num price;
+  final num rating;
 
   @override
   Widget build(BuildContext context) {
@@ -33,24 +58,28 @@ class ItemDetails extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text('Mohamed El Fatih',
+          // title
+          Text(title,
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
               style: Styles.subtitle20),
+
+          // author
           Text(
-            'AD Stories',
+            author,
             style: Styles.body16.copyWith(
               fontSize: 14,
               color: Colors.white.withOpacity(0.5),
             ),
           ),
-          const Row(
+          Row(
             children: [
               // price
-              Text('\$19.99', style: Styles.subtitle20),
-              Spacer(),
+              Text('\$$price', style: Styles.subtitle20),
+              const Spacer(),
               BookRating(
                 mainAxisAlignment: MainAxisAlignment.start,
+                rating: rating,
               ),
             ],
           ),
@@ -63,8 +92,9 @@ class ItemDetails extends StatelessWidget {
 class ItemImage extends StatelessWidget {
   const ItemImage({
     super.key,
+    required this.bestsellerimage,
   });
-
+  final String bestsellerimage;
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -75,10 +105,10 @@ class ItemImage extends StatelessWidget {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(12),
             color: Colors.green,
-            image: const DecorationImage(
-              image: AssetImage(AssetsData.testImage),
-              fit: BoxFit.cover,
-            ),
+            image: DecorationImage(
+                image: NetworkImage(
+              bestsellerimage,
+            )),
           ),
         ),
       ),

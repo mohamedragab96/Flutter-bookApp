@@ -1,5 +1,6 @@
 import 'package:book_app/core/utils/styles.dart';
 import 'package:book_app/features/home/presentation/manager/featured_books_cubit/featured_books_cubit.dart';
+import 'package:book_app/features/home/presentation/manager/newest_books_cubit/newest_books_cubit.dart';
 import 'package:book_app/features/home/presentation/views/widgets/best_seller_listview.dart';
 import 'package:book_app/features/home/presentation/views/widgets/custom_app_bar.dart';
 import 'package:book_app/features/home/presentation/views/widgets/featured_books_listview.dart';
@@ -19,7 +20,14 @@ class HomeViewBody extends StatefulWidget {
 class _HomeViewBodyState extends State<HomeViewBody> {
   @override
   void initState() {
+    /// calling the cubit to get all data from api
+    ///
+    ///
+    ///
     BlocProvider.of<FeaturedBooksCubit>(context).fetchFeaturedBooks();
+    super.initState();
+
+    BlocProvider.of<NewestBooksCubit>(context).fetchNewestBooks();
     super.initState();
   }
 
@@ -73,7 +81,8 @@ class BestSellerTitle extends StatelessWidget {
       children: [
         Text(
           'Best Seller',
-          style: Styles.subtitle20.copyWith(fontSize: 20, fontWeight: FontWeight.bold),
+          style: Styles.subtitle20
+              .copyWith(fontSize: 20, fontWeight: FontWeight.bold),
         ),
       ],
     );

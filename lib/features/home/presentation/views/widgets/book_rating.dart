@@ -5,7 +5,10 @@ class BookRating extends StatelessWidget {
   const BookRating({
     super.key,
     required this.mainAxisAlignment,
+    required this.rating,
   });
+
+  final num rating;
   final MainAxisAlignment mainAxisAlignment;
   @override
   Widget build(BuildContext context) {
@@ -19,7 +22,7 @@ class BookRating extends StatelessWidget {
 
         // rating
         Text(
-          '4.8',
+          rating.toString(),
           style: Styles.body16.copyWith(fontWeight: FontWeight.bold),
         ),
         const SizedBox(width: 5),

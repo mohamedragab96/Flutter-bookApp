@@ -47,7 +47,13 @@ class SearchResultListView extends StatelessWidget {
           return Padding(
             padding: const EdgeInsets.only(bottom: 20),
             child: GestureDetector(
-              child: const BookListViewItem(),
+              child: const BookListViewItem(
+                image: '',
+                title: '',
+                author: '',
+                price: 0,
+                rating: 0,
+              ),
               onTap: () {
                 GoRouter.of(context).push(AppRouter.kBookDetailsView);
               },
